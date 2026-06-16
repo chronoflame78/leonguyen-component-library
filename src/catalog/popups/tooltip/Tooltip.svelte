@@ -1,0 +1,108 @@
+<script lang="ts">
+  let visible = false;
+
+  function show() {
+    visible = true;
+  }
+
+  function hide() {
+    visible = false;
+  }
+</script>
+
+<div class="tooltip-demo">
+  <div class="tooltip-wrap">
+    <button
+      class="tooltip-trigger"
+      on:mouseenter={show}
+      on:mouseleave={hide}
+      on:focus={show}
+      on:blur={hide}
+      aria-describedby="tooltip-bubble"
+    >
+      Hover me
+    </button>
+    {#if visible}
+      <div id="tooltip-bubble" role="tooltip" class="tooltip-bubble">
+        Helpful hint goes here
+      </div>
+    {/if}
+  </div>
+</div>
+
+<style>
+  .tooltip-demo {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+
+  .tooltip-wrap {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .tooltip-trigger {
+    border: none;
+    border-radius: 0.6rem;
+    padding: 0.65rem 1.4rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e5e7eb;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.08);
+    transition: background 0.15s ease;
+  }
+
+  .tooltip-trigger:hover,
+  .tooltip-trigger:focus-visible {
+    background: rgba(255, 255, 255, 0.16);
+    outline: none;
+  }
+
+  .tooltip-bubble {
+    position: absolute;
+    bottom: calc(100% + 0.6rem);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    white-space: nowrap;
+    border-radius: 0.5rem;
+    padding: 0.4rem 0.7rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #f9fafb;
+    background: #2a2a38;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+    animation: tooltip-fade-in 0.15s ease both;
+  }
+
+  .tooltip-bubble::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #2a2a38;
+  }
+
+  @keyframes tooltip-fade-in {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tooltip-bubble {
+      animation: none;
+    }
+  }
+</style>

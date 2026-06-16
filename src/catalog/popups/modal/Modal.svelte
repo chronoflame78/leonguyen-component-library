@@ -1,0 +1,200 @@
+<script lang="ts">
+  import { onDestroy } from "svelte";
+
+  let open = false;
+
+  function show() {
+    open = true;
+  }
+
+  function close() {
+    open = false;
+  }
+
+  function onKeyDown(event: KeyboardEvent) {
+    if (event.key === "Escape") close();
+  }
+
+  $: if (typeof window !== "undefined") {
+    if (open) {
+      window.addEventListener("keydown", onKeyDown);
+    } else {
+      window.removeEventListener("keydown", onKeyDown);
+    }
+  }
+
+  onDestroy(() => {
+    if (typeof window !== "undefined") {
+      window.removeEventListener("keydown", onKeyDown);
+    }
+  });
+</script>
+
+<div class="modal-demo">
+  <button class="modal-trigger" on:click={show}>Open modal</button>
+
+  {#if open}
+    <div class="modal-backdrop" role="presentation" on:click={close}>
+      <div
+        class="modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        on:click|stopPropagation
+      >
+        <button class="modal-close" aria-label="Close" on:click={close}>×</button>
+        <h2 id="modal-title" class="modal-title">Welcome aboard</h2>
+        <p class="modal-body">
+          This is a self-contained dialog. Press Escape, click the backdrop, or
+          use the close button to dismiss it.
+        </p>
+        <div class="modal-actions">
+          <button class="modal-btn modal-btn--ghost" on:click={close}>Cancel</button>
+          <button class="modal-btn modal-btn--solid" on:click={close}>Confirm</button>
+        </div>
+      </div>
+    </div>
+  {/if}
+</div>
+
+<style>
+  .modal-demo {
+    display: flex;
+    justify-content: center;
+  }
+
+  .modal-trigger {
+    border: none;
+    border-radius: 0.6rem;
+    padding: 0.65rem 1.4rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    background: #6366f1;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+
+  .modal-trigger:hover {
+    background: #4f46e5;
+    transform: translateY(-1px);
+  }
+
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(5, 5, 12, 0.7);
+    backdrop-filter: blur(2px);
+    animation: modal-fade-in 0.2s ease both;
+  }
+
+  .modal-dialog {
+    position: relative;
+    width: 100%;
+    max-width: 26rem;
+    border-radius: 1rem;
+    padding: 1.75rem;
+    color: #e5e7eb;
+    background: #16161f;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.7);
+    animation: modal-scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.9rem;
+    border: none;
+    background: transparent;
+    color: #9ca3af;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+
+  .modal-close:hover {
+    color: #fff;
+  }
+
+  .modal-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .modal-body {
+    margin: 0 0 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #b6b8c3;
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+  }
+
+  .modal-btn {
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .modal-btn--ghost {
+    color: #d1d5db;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .modal-btn--ghost:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .modal-btn--solid {
+    color: #fff;
+    background: #6366f1;
+  }
+
+  .modal-btn--solid:hover {
+    background: #4f46e5;
+  }
+
+  @keyframes modal-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes modal-scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.94) translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .modal-backdrop,
+    .modal-dialog {
+      animation: none;
+    }
+  }
+</style>

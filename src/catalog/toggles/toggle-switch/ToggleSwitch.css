@@ -1,0 +1,49 @@
+.toggle-switch {
+  --track-off: #2a2a3a;
+  --track-on: #6366f1;
+  --knob: #ffffff;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 3.25rem;
+  height: 1.75rem;
+  padding: 0.1875rem;
+  border: none;
+  border-radius: 9999px;
+  background: var(--track-off);
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.toggle-switch[aria-checked="true"] {
+  background: var(--track-on);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25),
+    0 0 16px -2px rgba(99, 102, 241, 0.7);
+}
+
+.toggle-switch:focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 2px;
+}
+
+.toggle-switch__knob {
+  width: 1.375rem;
+  height: 1.375rem;
+  border-radius: 50%;
+  background: var(--knob);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transform: translateX(0);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle-switch[aria-checked="true"] .toggle-switch__knob {
+  transform: translateX(1.5rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle-switch,
+  .toggle-switch__knob {
+    transition: none;
+  }
+}

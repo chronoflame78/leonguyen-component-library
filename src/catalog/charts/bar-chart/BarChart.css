@@ -1,0 +1,23 @@
+.bar-chart {
+  font-family: system-ui, sans-serif;
+  color: #e5e7eb;
+}
+
+.bar-chart__bar {
+  transform-origin: bottom;
+  transform: scaleY(0);
+  animation: bar-chart-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes bar-chart-grow {
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar-chart__bar {
+    animation: none;
+    transform: scaleY(1);
+  }
+}

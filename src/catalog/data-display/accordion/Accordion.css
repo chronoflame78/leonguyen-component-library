@@ -1,0 +1,73 @@
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.accordion__item {
+  overflow: hidden;
+  border-radius: 0.625rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.accordion__header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 1.125rem;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-weight: 600;
+  color: #f1f5f9;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.accordion__header:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.accordion__chevron {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.accordion__chevron--open {
+  transform: rotate(180deg);
+}
+
+/* Smooth height via grid-template-rows 0fr -> 1fr (no fixed max-height hacks). */
+.accordion__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.3s ease, opacity 0.3s ease;
+}
+
+.accordion__panel--open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.accordion__panel-inner {
+  overflow: hidden;
+}
+
+.accordion__body {
+  padding: 0 1.125rem 1.125rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #94a3b8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion__panel,
+  .accordion__chevron {
+    transition: none;
+  }
+}

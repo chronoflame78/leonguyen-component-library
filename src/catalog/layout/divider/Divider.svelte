@@ -1,0 +1,62 @@
+<script lang="ts">
+  export let orientation: "horizontal" | "vertical" = "horizontal";
+  export let label: string | undefined = undefined;
+</script>
+
+<div
+  class="divider divider--{orientation}"
+  role="separator"
+  aria-orientation={orientation}
+>
+  {#if label && orientation === "horizontal"}
+    <span class="divider__line" />
+    <span class="divider__label">{label}</span>
+    <span class="divider__line" />
+  {:else}
+    <span class="divider__line" />
+  {/if}
+</div>
+
+<style>
+  .divider {
+    --divider-color: rgba(148, 163, 184, 0.3);
+    --divider-label: #94a3b8;
+    display: flex;
+    align-items: center;
+  }
+
+  .divider--horizontal {
+    width: 100%;
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+
+  .divider--vertical {
+    height: 100%;
+    flex-direction: column;
+    align-self: stretch;
+  }
+
+  .divider__line {
+    background: var(--divider-color);
+    flex: 1 1 auto;
+  }
+
+  .divider--horizontal .divider__line {
+    height: 1px;
+  }
+
+  .divider--vertical .divider__line {
+    width: 1px;
+  }
+
+  .divider__label {
+    flex: 0 0 auto;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--divider-label);
+    white-space: nowrap;
+  }
+</style>
