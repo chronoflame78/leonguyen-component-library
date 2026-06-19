@@ -1,0 +1,133 @@
+.like-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.like-toggle:focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+/* Heart icon */
+.like-toggle__heart {
+  position: relative;
+  z-index: 2;
+  fill: none;
+  stroke: #8a8fa3;
+  stroke-width: 2;
+  transition: fill 0.2s ease, stroke 0.2s ease, transform 0.2s ease;
+}
+
+.like-toggle:hover .like-toggle__heart {
+  stroke: #f43f6e;
+}
+
+.like-toggle[aria-checked="true"] .like-toggle__heart {
+  fill: #f43f6e;
+  stroke: #f43f6e;
+  animation: like-pop 0.45s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+/* Ring pulse on activation */
+.like-toggle__ring {
+  position: absolute;
+  inset: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: -1.25rem 0 0 -1.25rem;
+  border-radius: 50%;
+  border: 2px solid #f43f6e;
+  opacity: 0;
+  transform: scale(0.2);
+  pointer-events: none;
+}
+
+.like-toggle[aria-checked="true"] .like-toggle__ring {
+  animation: like-ring 0.5s ease-out;
+}
+
+/* Particle burst */
+.like-toggle__burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.like-toggle__burst i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: #f9a8c4;
+  opacity: 0;
+  transform: rotate(var(--a)) translateX(0);
+}
+
+.like-toggle__burst i:nth-child(odd) {
+  background: #f43f6e;
+}
+
+.like-toggle[aria-checked="true"] .like-toggle__burst i {
+  animation: like-burst 0.55s ease-out;
+}
+
+@keyframes like-pop {
+  0% {
+    transform: scale(0.3);
+  }
+  45% {
+    transform: scale(1.25);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes like-ring {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.3);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+@keyframes like-burst {
+  0% {
+    opacity: 1;
+    transform: rotate(var(--a)) translateX(6px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--a)) translateX(20px) scale(0.3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .like-toggle__heart {
+    transition: none;
+  }
+  .like-toggle[aria-checked="true"] .like-toggle__heart,
+  .like-toggle[aria-checked="true"] .like-toggle__ring,
+  .like-toggle[aria-checked="true"] .like-toggle__burst i {
+    animation: none;
+  }
+}

@@ -1,0 +1,38 @@
+.char-limit-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --ring-color: #818cf8;
+}
+
+.char-limit-ring--warning {
+  --ring-color: #fbbf24;
+}
+
+.char-limit-ring--danger {
+  --ring-color: #fb7185;
+}
+
+.char-limit-ring__track {
+  stroke: rgba(255, 255, 255, 0.12);
+}
+
+.char-limit-ring__progress {
+  stroke: var(--ring-color);
+  transition: stroke-dashoffset 0.25s ease, stroke 0.25s ease;
+}
+
+.char-limit-ring__count {
+  position: absolute;
+  font-size: 0.6rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--ring-color);
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .char-limit-ring__progress {
+    transition: none;
+  }
+}

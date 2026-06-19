@@ -1,0 +1,67 @@
+<script lang="ts">
+  export let label: string = "Explore";
+</script>
+
+<button class="fill-sweep-button" on:click>
+  <span class="fill-sweep-button__label">{label}</span>
+</button>
+
+<style>
+  .fill-sweep-button {
+    --accent: #f59e0b;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--accent);
+    border-radius: 9999px;
+    padding: 0.75rem 2rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent);
+    cursor: pointer;
+    background: transparent;
+    transition: color 0.35s ease;
+    isolation: isolate;
+  }
+
+  /* the solid fill that sweeps in from the left */
+  .fill-sweep-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .fill-sweep-button:hover {
+    /* text flips to dark for contrast as the fill passes */
+    color: #1a1205;
+  }
+
+  .fill-sweep-button:hover::before {
+    transform: scaleX(1);
+  }
+
+  .fill-sweep-button:active {
+    transform: translateY(1px);
+  }
+
+  .fill-sweep-button:focus-visible {
+    outline: 3px solid rgba(245, 158, 11, 0.5);
+    outline-offset: 2px;
+  }
+
+  .fill-sweep-button__label {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fill-sweep-button,
+    .fill-sweep-button::before {
+      transition: none;
+    }
+  }
+</style>

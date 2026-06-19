@@ -1,0 +1,84 @@
+<script lang="ts">
+  export let label: string = "Continue";
+</script>
+
+<button class="arrow-button" on:click>
+  <span class="arrow-button__label">{label}</span>
+  <span class="arrow-button__arrow" aria-hidden="true">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <line x1="4" y1="12" x2="20" y2="12" />
+      <polyline points="13 5 20 12 13 19" />
+    </svg>
+  </span>
+</button>
+
+<style>
+  .arrow-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    padding: 0.8rem 1.6rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    box-shadow: 0 8px 22px -10px rgba(59, 130, 246, 0.9);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .arrow-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px -10px rgba(59, 130, 246, 1);
+  }
+
+  .arrow-button:active {
+    transform: translateY(0);
+  }
+
+  .arrow-button:focus-visible {
+    outline: 3px solid #bfdbfe;
+    outline-offset: 2px;
+  }
+
+  /* label slides slightly aside to make room for the arrow */
+  .arrow-button__label {
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .arrow-button:hover .arrow-button__label {
+    transform: translateX(-3px);
+  }
+
+  /* arrow slides in / moves forward */
+  .arrow-button__arrow {
+    display: inline-flex;
+    transform: translateX(-4px);
+    opacity: 0.85;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+  }
+
+  .arrow-button:hover .arrow-button__arrow {
+    transform: translateX(4px);
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .arrow-button,
+    .arrow-button__label,
+    .arrow-button__arrow {
+      transition: none;
+    }
+  }
+</style>

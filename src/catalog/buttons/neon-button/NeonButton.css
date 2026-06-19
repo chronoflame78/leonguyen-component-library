@@ -1,0 +1,57 @@
+.neon-button {
+  --neon: #22d3ee;
+  position: relative;
+  border: 2px solid var(--neon);
+  border-radius: 9999px;
+  padding: 0.75rem 2rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--neon);
+  background: transparent;
+  cursor: pointer;
+  text-shadow: 0 0 8px rgba(34, 211, 238, 0.8);
+  box-shadow: 0 0 6px rgba(34, 211, 238, 0.6),
+    0 0 18px rgba(34, 211, 238, 0.45),
+    inset 0 0 8px rgba(34, 211, 238, 0.25);
+  animation: neon-button-pulse 2.4s ease-in-out infinite;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.neon-button:hover {
+  color: #0d0d14;
+  background: var(--neon);
+  text-shadow: none;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.9),
+    0 0 28px rgba(34, 211, 238, 0.7);
+  animation: none;
+}
+
+.neon-button:active {
+  transform: translateY(1px);
+}
+
+.neon-button__label {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes neon-button-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 6px rgba(34, 211, 238, 0.6),
+      0 0 18px rgba(34, 211, 238, 0.45),
+      inset 0 0 8px rgba(34, 211, 238, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(34, 211, 238, 0.95),
+      0 0 34px rgba(34, 211, 238, 0.7),
+      inset 0 0 12px rgba(34, 211, 238, 0.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neon-button {
+    animation: none;
+  }
+}
